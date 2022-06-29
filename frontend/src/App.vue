@@ -1,19 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <GetUsers/>
-  <PostUsers/>
-
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <PageDisplay/>
+    <PieChart/>
+  </div>
 </template>
 
 <script>
-import GetUsers from './components/GetUsers.vue'
-import PostUsers from './components/PostUsers.vue'
+import PageDisplay from './components/PageDisplay.vue'
+import PieChart from './components/PieChart.vue'
 
 export default {
   name: 'App',
   components: {
-    GetUsers,
-    PostUsers
+    PageDisplay,
+    PieChart
   }
 }
 </script>

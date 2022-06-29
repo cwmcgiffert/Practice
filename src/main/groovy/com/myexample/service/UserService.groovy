@@ -34,4 +34,8 @@ class UserService {
     User saveUser(String email, String password){
         userGormService.save(email, password)
     }
+
+    void deleteUser(Serializable id){
+        userGormService.delete(id)
+    }    
 }

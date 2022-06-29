@@ -28,4 +28,9 @@ class UserController {
     User newUser(@Body User user) {
         userService.saveUser(user)
     }
+
+    @Delete(uri = "/{id}")
+    void deleteUser(Serializable id) {
+        userService.deleteUser(id)
+    }
 }
