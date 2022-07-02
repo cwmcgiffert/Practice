@@ -30,7 +30,7 @@ export default defineComponent({
   },
   methods: {
     addRandomUser() {
-      const email = Math.random().toString(16) + "@website.com"
+      const email = Math.random().toString(16).substring(2,8) + "@website.com"
       const password = Math.random().toString(16)
       console.log(email + " " + password)
       let response = this.addUser(email, password)
