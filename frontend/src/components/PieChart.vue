@@ -14,7 +14,7 @@ import {
 import VChart from "vue-echarts";
 import { ref, defineComponent } from "vue";
 import { useUserStore } from "../stores/users";
-const store = useUserStore();
+import { storeToRefs } from "pinia";
 
 use([
   CanvasRenderer,
@@ -29,8 +29,9 @@ export default defineComponent({
   components: {
     VChart
   },
-  
   setup() {
+    const store = useUserStore();
+    const { firstLetterStats } = storeToRefs(store)
     const option = ref({
       tooltip: {
         trigger: "item",
@@ -41,14 +42,7 @@ export default defineComponent({
           type: "pie",
           radius: "55%",
           center: ["50%", "60%"],
-          data: store.getStats,
-          // data: [
-          //   { value: 335, name: "Direct" },
-          //   { value: 310, name: "Email" },
-          //   { value: 234, name: "Ad Networks" },
-          //   { value: 135, name: "Video Ads" },
-          //   { value: 1548, name: "Search Engines" }
-          // ],
+          data: firstLetterStats,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,

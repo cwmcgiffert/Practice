@@ -1,41 +1,45 @@
 <template>
   <div class="PageDisplay">
-    <div v-for='(gettersUser, index) in getUsers' :key='index'>
+    <div v-for='(gettersUser, index) in users' :key='index'>
       <b>{{gettersUser.email}}</b><br/>
       {{gettersUser.password}}<br/>
       <button @click="removeUser(gettersUser.id)">Delete</button><br/><br/>
     </div>
     <div>
-      <button @click="addRandomUser">New random email</button>
+      <button @click="addRandomUser()">New random email</button>
     </div>
   </div>
 </template>
 
-<script setup>
-import { onMounted, computed } from 'vue';
+<script>
+import { onMounted, defineComponent } from 'vue';
+import { storeToRefs } from "pinia";
 import { useUserStore } from "../stores/users";
-const store = useUserStore();
 
-
-function addRandomUser() {
-  const email = Math.random().toString(16).substr(2,8) + "@" + Math.random().toString(16).substr(2,8) + ".com"
-  const password = Math.random().toString(16).substr(2,10)
-  console.log(email + " " + password)
-  let response = store.addUser(email, password)
-  store.fetchUsers();
-  return response
-}
-
-function removeUser(id) {
-  return store.deleteUser(id)
-}
-
-const getUsers = computed(() => {
-  return store.getUsers
+export default defineComponent({
+  setup() {
+    const store = useUserStore();
+    const { users } = storeToRefs(store)
+    const { fetchUsers, addUser, deleteUser } = store
+    onMounted(() => {
+      store.fetchUsers();
+    })
+    return {
+      users, fetchUsers, addUser, deleteUser
+    }
+  },
+  methods: {
+    addRandomUser() {
+      const email = Math.random().toString(16) + "@website.com"
+      const password = Math.random().toString(16)
+      console.log(email + " " + password)
+      let response = this.addUser(email, password)
+      this.fetchUsers();
+      return response
+    },
+    removeUser(id) {
+      return this.deleteUser(id)
+    }
+  }
 })
-
-onMounted(() => {
-  store.fetchUsers();
-})
-
 </script>

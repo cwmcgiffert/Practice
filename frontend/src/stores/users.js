@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import axios from "axios"
 export const useUserStore = defineStore("user", {
     state: () => ({
-        users: [],
-        firstLetterStats: [], 
+        users: [], // Actual data
+        firstLetterStats: [], // For my example graph
     }),
     getters: {
       getUsers(state){
@@ -47,7 +47,7 @@ export const useUserStore = defineStore("user", {
           console.log(e)
         }
       },
-      calculateStats(){
+      calculateStats(){ // Calculates stats to use for example graph
         this.firstLetterStats = []
         this.users.forEach(user => {
             const firstLetter = user.email.charAt()
@@ -63,7 +63,7 @@ export const useUserStore = defineStore("user", {
             }
         })
       },
-      addStat(letter){
+      addStat(letter){ // Calculates stats to use for example graph
         let found = false
         this.firstLetterStats.map(pt => {
           if (pt.name === letter) {
@@ -77,7 +77,7 @@ export const useUserStore = defineStore("user", {
             this.firstLetterStats.push({name: letter, value: 1})
         }
       },
-      removeStat(letter){
+      removeStat(letter){ // Calculates stats to use for example graph
         let isEmpty = false
         this.firstLetterStats.map((pt) => {
           if (pt.name === letter) {
